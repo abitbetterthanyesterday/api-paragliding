@@ -1,0 +1,36 @@
+{
+  "name": "api-paragliding",
+  "version": "1.0.0",
+  "description": "API back end for a paragliding classified ads website",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "eslint --ignore-path .gitignore .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aloysb/api-paragliding.git"
+  },
+  "author": "Aloys B",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aloysb/api-paragliding/issues"
+  },
+  "homepage": "https://github.com/Aloysb/api-paragliding#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.12"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-config-strongloop": "^2.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "nodemon": "^2.0.3"
+  }
+}
