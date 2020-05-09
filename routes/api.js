@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
+var multer = require('multer')
 
 const wingController = require('../controllers/wingsController')
+const userController = require('../controllers/usersController')
 
 // ///// WINGS ///// //
 // GET Diplay all wings ads
@@ -167,19 +169,13 @@ router.delete('/misc/:id', function (req, res) {
 // ///// USERS ///// //
 
 // GET Diplay all users
-router.get('/users', function (req, res) {
-  res.send(req.method + req.originalUrl + ' not implemented yet.')
-})
+router.get('/users', userController.displayUsers)
 
 // GET Display users detail
-router.get('/users/:id', function (req, res) {
-  res.send(req.method + req.originalUrl + ' not implemented yet.')
-})
+router.get('/users/:id', userController.displayUser)
 
 // POST Create users
-router.post('/users', function (req, res) {
-  res.send(req.method + req.originalUrl + ' not implemented yet.')
-})
+router.post('/users', userController.createUser)
 
 // PUT Update users
 router.put('/users/:id', function (req, res) {
