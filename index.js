@@ -6,11 +6,11 @@ const app = express()
 const mongoose = require('mongoose')
 const passport = require('passport')
 const session = require('express-session')
-const LocalStrategy = require('passport-local').Strategy
 const cloudinary = require('cloudinary').v2
 const morgan = require('morgan')
 
 // Routers
+const mainRouter = require('./routes/mainRouter')
 const usersRouter = require('./routes/usersRouter')
 const wingsRouter = require('./routes/wingsRouter')
 const harnessRouter = require('./routes/harnessRouter')
@@ -56,21 +56,19 @@ passport.use(localStrategy)
 // Initialize Passport
 app.use(passport.initialize())
 
-app.post('/login',
-  passport.authenticate('local', { failureRedirect: '/' }),
-  function(req, res) {
-    res.send('helloworld')
-  })
-
-app.get('/login',
-  function(req, res) {
-    res.send('login')
-  })
+app.use('/user', passport.authenticate('jwt', { session: false }), mainRouter )
 
 // Settings up routes
+app.use('/', mainRouter)
 app.use('/wings', wingsRouter)
 app.use('/users', usersRouter)
 app.use('/harness', harnessRouter)
 app.use('/rescues', rescuesRouter)
 app.use('/instruments', instrumentsRouter)
 app.use('/misc', miscRouter)
+
+// Handle errors
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500)
+  res.json({ error: err.message })
+})
