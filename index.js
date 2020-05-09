@@ -5,12 +5,20 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const APIRouter = require('./routes/api')
-var cloudinary = require('cloudinary').v2
+const cloudinary = require('cloudinary').v2
+
+const passport = require('passport');
+const session = require('express-session');
+const LocalStrategy = require('passport-local').Strategy;
+
+const morgan = require('morgan')
 
 //  Set up mongoose connection
 const { DB_HOST, DB_PORT, DB_LOGIN, DB_PWD, DB_NAME } = process.env
 mongoose.connect(`mongodb://${DB_LOGIN}:${DB_PWD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`)
 const db = mongoose.connection
+
+app.use(morgan('tiny'))
 
 // Error connection to DB
 db.on('error', (err) => {
@@ -44,6 +52,48 @@ if (test) {
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+// Set up authentification
+const User = require('./models/userSchema')
+
+
+// Configure the local strategy for use by Passport.
+//
+// The local strategy require a `verify` function which receives the credentials
+// (`username` and `password`) submitted by the user.  The function must verify
+// that the password is correct and then invoke `cb` with a user object, which
+// will be set at `req.user` in route handlers after authentication.
+passport.use(new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password'
+},
+function (username, password, done) {
+  User.findOne({ email: username }, function (err, user) {
+    if (err) { console.log(err) }
+    if (!user) {
+      return console.log('Incorrect username.')
+    }
+    console.log(user, password === user.password)
+  })
+}))
+
+// Initialize Passport and restore authentication state, if any, from the
+// session.
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.post('/login',
+  passport.authenticate('local', { failureRedirect: '/' }),
+  function(req, res) {
+    res.send('helloworld');
+  })
+
+app.get('/login',
+function(req, res){
+  res.send('login')
+})
+
+
 
 app.use('/', APIRouter)
 

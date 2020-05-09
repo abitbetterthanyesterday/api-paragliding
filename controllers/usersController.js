@@ -11,6 +11,7 @@ exports.displayUsers = function (req, res) {
     })
 }
 
+// Get display one user
 exports.displayUser = function (req, res) {
   User
     .findById(req.params.id)
@@ -21,7 +22,7 @@ exports.displayUser = function (req, res) {
     })
 }
 
-// POST Create user
+// POST Create user - NEEDS VALIDATING ECT.
 exports.createUser = function (req, res) {
   const newUser = new User({ ...req.body })
 
@@ -35,3 +36,11 @@ exports.createUser = function (req, res) {
     }
   })
 }
+
+exports.test = function (req,res) {
+    User
+    .findOne({ "email": req.body.email })
+    .exec(function(err, user){
+      if (err) console.log(err);
+      else res.send(user);
+    })}

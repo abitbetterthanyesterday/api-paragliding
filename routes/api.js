@@ -177,6 +177,10 @@ router.get('/users/:id', userController.displayUser)
 // POST Create users
 router.post('/users', userController.createUser)
 
+
+// TEST
+router.post('/users/test', userController.test)
+
 // PUT Update users
 router.put('/users/:id', function (req, res) {
   res.send(req.method + req.originalUrl + ' not implemented yet.')

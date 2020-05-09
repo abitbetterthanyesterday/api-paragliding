@@ -12,6 +12,20 @@ exports.wingsList = function (req, res) {
     })
 }
 
+// GET display a wing
+exports.displayUser = function (req, res) {
+  Wing
+    .findById(req.params.id)
+    .sort([['name', 'ascending']])
+    .exec(function (err, list) {
+      if (err) { console.log(err) }
+      res.json(list)
+    })
+}
+
+// Delete a wing
+
+
 // POST Save wing
 exports.saveWings = function (req, res) {
   const newWing = new Wing({ ...req.body })
