@@ -29,7 +29,8 @@ const HarnessSchema = new Schema({
   city: { type: String, required: true },
   price: { type: Number, required: true },
   seller: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  sold: { type: Boolean, default: false }
+  sold: { type: Boolean, default: false },
+  imagesURL: { type: [String], required: true }
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 
 module.exports = mongoose.model('Harness', HarnessSchema)

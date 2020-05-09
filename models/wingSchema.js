@@ -25,7 +25,8 @@ const WingSchema = new Schema({
   certified: { type: Boolean, required: true },
   lifespan: { type: Number },
   sold: { type: Boolean, default: false },
-  images: { type: [Buffer], required: true }
+  images: { type: [Buffer], required: true },
+  imagesURL: { type: [String], required: true }
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 
 module.exports = mongoose.model('Wing', WingSchema)
