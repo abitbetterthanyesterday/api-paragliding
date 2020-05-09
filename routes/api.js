@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
+const wingController = require('../controllers/wingsController')
+
 // ///// WINGS ///// //
 // GET Diplay all wings ads
-router.get('/wings', function (req, res) {
-  res.send(req.method + req.originalUrl + ' not implemented yet.')
-})
+router.get('/wings', wingController.wingsList)
 
 // GET Display wing ad detail
 router.get('/wings/:id', function (req, res) {
@@ -13,12 +13,14 @@ router.get('/wings/:id', function (req, res) {
 })
 
 // POST Create wings ad
-router.post('/wings', function (req, res) {
-  res.send(req.method + req.originalUrl + ' not implemented yet.')
-})
+router.post('/wings',
+  // function (req, res) { console.log('here!') })
+  wingController.saveWings
+)
 
 // PUT Update wings ad
 router.put('/wings/:id', function (req, res) {
+  console.log(req.params)
   res.send(req.method + req.originalUrl + ' not implemented yet.')
 })
 
