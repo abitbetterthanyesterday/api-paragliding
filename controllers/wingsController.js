@@ -5,7 +5,7 @@ exports.wingsList = function (req, res) {
   Wing
     .find()
     .sort([['name', 'ascending']])
-    .populate('seller')
+    .populate('seller','-password')
     .exec(function (err, listWing) {
       if (err) { console.log(err) }
       res.json(listWing)
@@ -24,7 +24,6 @@ exports.displayUser = function (req, res) {
 }
 
 // Delete a wing
-
 
 // POST Save wing
 exports.saveWings = function (req, res) {
