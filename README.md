@@ -2,6 +2,12 @@
 API for paragliding classified ads
 
 ## WINGS
+### Get all wings ads
+GET api/wings/
+
+### Get wings ad detail
+GET api/wings/:id
+
 ### Create an Ad
 POST api/wings/
   Payload: {
@@ -17,3 +23,6 @@ POST api/wings/
     seller: { type: Schema.Types.ObjectId, ref: 'User', required: true }
   }
 }
+
+### Update an Ad
+PUT api/wings/:id
