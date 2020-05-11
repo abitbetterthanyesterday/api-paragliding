@@ -1,6 +1,6 @@
 {
   "name": "api-paragliding",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "API back end for a paragliding classified ads website",
   "main": "index.js",
   "scripts": {
