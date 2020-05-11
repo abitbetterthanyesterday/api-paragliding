@@ -13,7 +13,7 @@ module.exports = function (passport) {
   async (email, password, done) => {
     try {
       // Find the user associated with the email provided by the user
-      const user = await User.findOne({ email })
+      const user = await User.findOne({ email }).select('+password')
       if (!user) {
         // If the user isn't found in the database, return a message
         done(new Error('Email address not found'))
@@ -21,7 +21,6 @@ module.exports = function (passport) {
       // Validate password and make sure it matches with the corresponding hash stored in the database
       // If the passwords match, it returns a value of true.
       const validate = await user.isValidPassword(password)
-
       if (!validate) {
         done(new Error('Wrong password'))
       }

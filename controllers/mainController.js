@@ -7,9 +7,9 @@ const User = require('../models/userSchema')
 exports.login = async (req, res, next) => {
   passport.authenticate('local', async (err, user, info) => {
     try {
-      console.log('here')
       if (err) {
         const error = new Error('An Error occurred')
+        console.log(err)
         return next(error)
       }
       req.login(user, { session: false }, async (error) => {
