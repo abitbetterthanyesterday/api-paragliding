@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const passport = require('passport')
 
 const wingController = require('../controllers/wingsController')
 
@@ -18,10 +19,7 @@ router.get('/:id', function (req, res) {
 // ##PROTECTED## //
 
 // POST Create wings ad
-router.post('/',
-  // function (req, res) { console.log('here!') })
-  wingController.saveWings
-)
+router.post('/', passport.authenticate('jwt', { session: false }), wingController.saveWings)
 
 // PUT Update wings ad
 router.put('/:id', function (req, res) {
