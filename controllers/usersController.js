@@ -36,11 +36,3 @@ exports.createUser = function (req, res) {
     }
   })
 }
-
-exports.test = function (req,res) {
-    User
-    .findOne({ "email": req.body.email })
-    .exec(function(err, user){
-      if (err) console.log(err);
-      else res.send(user);
-    })}
