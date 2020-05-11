@@ -5,7 +5,6 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const passport = require('passport')
-const session = require('express-session')
 const cloudinary = require('cloudinary').v2
 const morgan = require('morgan')
 
@@ -35,7 +34,7 @@ app.listen(3000, () => {
 })
 
 // Logger
-app.use(morgan('tiny'))
+app.use(morgan('dev'))
 
 // Configure cloudinary
 cloudinary.config({
@@ -48,15 +47,9 @@ cloudinary.config({
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// Set up authentification
-const localStrategy = require('./auth/auth')
-
-passport.use(localStrategy)
-
 // Initialize Passport
 app.use(passport.initialize())
-
-app.use('/user', passport.authenticate('jwt', { session: false }), mainRouter )
+require('./auth/auth.js')(passport)
 
 // Settings up routes
 app.use('/', mainRouter)

@@ -5,7 +5,7 @@ exports.wingsList = function (req, res) {
   Wing
     .find()
     .sort([['name', 'ascending']])
-    .populate('seller','-password')
+    .populate('seller')
     .exec(function (err, listWing) {
       if (err) { console.log(err) }
       res.json(listWing)
@@ -32,7 +32,7 @@ exports.saveWings = function (req, res) {
   newWing.save((err) => {
     if (err) {
       console.log(err)
-      res.send('error')
+      res.send('error: ')
     } else {
       console.log('saved')
       res.send('saved')
