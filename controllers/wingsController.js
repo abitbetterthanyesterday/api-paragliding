@@ -27,7 +27,7 @@ exports.displayUser = function (req, res) {
 // Delete a wing
 
 // POST Create a wing ad
-exports.saveWings = ([
+exports.saveWings = [
   check('brand').isAlphanumeric().isLength({min: 1}),
   check('model').isAlphanumeric().isLength({min: 1}),
   check('type').isAlphanumeric().isLength({min: 1}),
@@ -45,7 +45,7 @@ exports.saveWings = ([
   check('lifespan').isInt().optional(),
   check('sold').isBoolean(),
   check('imagesURL').optional(),
-], (req, res) => {
+, (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() })
@@ -61,4 +61,4 @@ exports.saveWings = ([
       }
     })
   }
-})
+}]
